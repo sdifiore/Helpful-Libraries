@@ -21,5 +21,4 @@ public static class HttpContextExtensions
 
     public static IResult ChallengeOrForbidApi(this HttpContext httpContext) =>
         httpContext.ChallengeOrForbid("Api");
-
 }
