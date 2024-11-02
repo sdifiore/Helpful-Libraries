@@ -14,7 +14,7 @@ public static class ShellHostExtensions
         Func<ShellScope, Task> asyncAction,
         string scopeName = "Default")
     {
-        var shellScope = await shellHost.GetScopeAsync(scopeName);
+        await using var shellScope = await shellHost.GetScopeAsync(scopeName);
         await shellScope.UsingAsync(asyncAction);
     }
 
