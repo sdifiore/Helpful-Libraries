@@ -10,28 +10,18 @@ public static class ServiceProviderExtensions
     /// <summary>
     /// Executes <paramref name="asyncAction"/> in the specified shell's scope.
     /// </summary>
-    public static async Task WithShellScopeAsync(
+    public static Task WithShellScopeAsync(
         this IServiceProvider serviceProvider,
         Func<ShellScope, Task> asyncAction,
-        string scopeName = "Default")
-    {
-        var shellHost = serviceProvider.GetRequiredService<IShellHost>();
-        var shellScope = await shellHost.GetScopeAsync(scopeName);
-        await shellScope.UsingAsync(asyncAction);
-    }
+        string scopeName = "Default") =>
+        serviceProvider.GetRequiredService<IShellHost>().WithShellScopeAsync(asyncAction, scopeName);
 
     /// <summary>
     /// Executes <paramref name="asyncFunc"/> in the specified shell's scope and returns the resulting object.
     /// </summary>
-    public static async Task<T> GetWithShellScopeAsync<T>(
+    public static Task<T> GetWithShellScopeAsync<T>(
         this IServiceProvider serviceProvider,
         Func<ShellScope, Task<T>> asyncFunc,
-        string scopeName = "Default")
-    {
-        T result = default;
-
-        await serviceProvider.WithShellScopeAsync(async scope => result = await asyncFunc(scope), scopeName);
-
-        return result;
-    }
+        string scopeName = "Default") =>
+        serviceProvider.GetRequiredService<IShellHost>().GetWithShellScopeAsync(asyncFunc, scopeName);
 }
