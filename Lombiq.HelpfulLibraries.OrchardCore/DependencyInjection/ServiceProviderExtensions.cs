@@ -13,7 +13,7 @@ public static class ServiceProviderExtensions
     public static Task WithShellScopeAsync(
         this IServiceProvider serviceProvider,
         Func<ShellScope, Task> asyncAction,
-        string scopeName = "Default") =>
+        string scopeName = ShellSettings.DefaultShellName) =>
         serviceProvider.GetRequiredService<IShellHost>().WithShellScopeAsync(asyncAction, scopeName);
 
     /// <summary>
@@ -22,6 +22,6 @@ public static class ServiceProviderExtensions
     public static Task<T> GetWithShellScopeAsync<T>(
         this IServiceProvider serviceProvider,
         Func<ShellScope, Task<T>> asyncFunc,
-        string scopeName = "Default") =>
+        string scopeName = ShellSettings.DefaultShellName) =>
         serviceProvider.GetRequiredService<IShellHost>().GetWithShellScopeAsync(asyncFunc, scopeName);
 }
