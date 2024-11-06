@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://learn.microsoft.com/en-us/dotnet/fundamentals/package-validation/diagnostic-ids -->
+<Suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeForCurrentUserAndExecuteAsync``1(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Mvc.Controller,System.Collections.Generic.IEnumerable{OrchardCore.Security.Permissions.Permission},System.Func{System.Threading.Tasks.Task{``0}},System.String,System.Boolean)</Target>
+    <Left>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Left>
+    <Right>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeForCurrentUserValidateAndExecuteAsync``2(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Mvc.Controller,System.Collections.Generic.IEnumerable{OrchardCore.Security.Permissions.Permission},System.Func{System.Threading.Tasks.Task{System.ValueTuple{System.Boolean,``0}}},System.Func{``0,System.Threading.Tasks.Task{``1}},System.String,System.Boolean)</Target>
+    <Left>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Left>
+    <Right>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Microsoft.AspNetCore.Authorization.AuthorizationServiceExtensions.AuthorizeForCurrentUserValidateNotNullAndExecuteAsync``2(Microsoft.AspNetCore.Authorization.IAuthorizationService,Microsoft.AspNetCore.Mvc.Controller,System.Collections.Generic.IEnumerable{OrchardCore.Security.Permissions.Permission},System.Func{System.Threading.Tasks.Task{``0}},System.Func{``0,System.Threading.Tasks.Task{``1}},System.String,System.Boolean)</Target>
+    <Left>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Left>
+    <Right>lib/net8.0/Lombiq.HelpfulLibraries.OrchardCore.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+</Suppressions>
