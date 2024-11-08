@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OrchardCore.Admin;
 using OrchardCore.Environment.Extensions;
+using OrchardCore.Environment.Shell;
 using OrchardCore.Modules.Manifest;
 using OrchardCore.Mvc.Core.Utilities;
 using System;
@@ -111,7 +112,7 @@ public class TypedRoute
     /// route, and other arguments.
     /// </summary>
     public string ToString(string tenantName) =>
-        string.IsNullOrWhiteSpace(tenantName) || tenantName.EqualsOrdinalIgnoreCase("Default")
+        string.IsNullOrWhiteSpace(tenantName) || tenantName.EqualsOrdinalIgnoreCase(ShellSettings.DefaultShellName)
             ? ToString()
             : $"/{tenantName}{this}";
 
