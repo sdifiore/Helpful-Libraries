@@ -39,6 +39,9 @@ public static class HostingDefaultsOrchardCoreBuilderExtensions
 
         if (webApplicationBuilder.Environment.IsDevelopment())
         {
+            logLevelSection
+                .AddValueIfKeyNotExists("Default", "Error");
+
             // Orchard Core 1.8 and prior section. Keeping it here for leftover configs, because it keeps working under
             // 2.0 too
             var oc18SmtpSection = ocSection.GetSection("SmtpSettings");
