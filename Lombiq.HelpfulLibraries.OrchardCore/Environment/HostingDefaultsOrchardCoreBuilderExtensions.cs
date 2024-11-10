@@ -40,7 +40,9 @@ public static class HostingDefaultsOrchardCoreBuilderExtensions
         if (webApplicationBuilder.Environment.IsDevelopment())
         {
             logLevelSection
-                .AddValueIfKeyNotExists("Default", "Error");
+                .AddValueIfKeyNotExists("Default", "Debug")
+                .AddValueIfKeyNotExists("System", "Information")
+                .AddValueIfKeyNotExists("Microsoft", "Information");
 
             // Orchard Core 1.8 and prior section. Keeping it here for leftover configs, because it keeps working under
             // 2.0 too
