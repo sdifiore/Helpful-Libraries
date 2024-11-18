@@ -37,12 +37,11 @@ public static class HostingDefaultsOrchardCoreBuilderExtensions
         var logLevelSection = webApplicationBuilder.Configuration.GetSection("Logging:LogLevel");
         var elasticSearchSection = ocSection.GetSection("OrchardCore_Elasticsearch");
 
+        logLevelSection.AddValueIfKeyNotExists("Default", "Warning");
+
         if (webApplicationBuilder.Environment.IsDevelopment())
         {
-            logLevelSection
-                .AddValueIfKeyNotExists("Default", "Debug")
-                .AddValueIfKeyNotExists("System", "Information")
-                .AddValueIfKeyNotExists("Microsoft", "Information");
+            logLevelSection.AddValueIfKeyNotExists("Microsoft.Hosting.Lifetime", "Information");
 
             // Orchard Core 1.8 and prior section. Keeping it here for leftover configs, because it keeps working under
             // 2.0 too
@@ -70,9 +69,7 @@ public static class HostingDefaultsOrchardCoreBuilderExtensions
         }
         else
         {
-            logLevelSection
-                .AddValueIfKeyNotExists("Default", "Warning")
-                .AddValueIfKeyNotExists("Microsoft.AspNetCore", "Warning");
+            logLevelSection.AddValueIfKeyNotExists("Microsoft.AspNetCore", "Warning");
 
             ocSection.AddValueIfKeyNotExists("DatabaseProvider", "SqlConnection");
 
