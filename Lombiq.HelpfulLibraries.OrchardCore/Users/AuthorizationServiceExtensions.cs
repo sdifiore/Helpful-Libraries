@@ -1,4 +1,5 @@
 ﻿using Lombiq.HelpfulLibraries.AspNetCore.Exceptions;
+using Lombiq.HelpfulLibraries.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -83,11 +84,11 @@ public static class AuthorizationServiceExtensions
 
             return result as IActionResult ?? controller.Ok(result);
         }
-        catch (FrontendException exception)
+        catch (Exception exception) when (exception is UserReadableException or FrontendException)
         {
             var logger = controller.HttpContext?.RequestServices?.GetService<ILogger<Controller>>();
             logger?.LogError(exception, "An error has occurred.");
-            return controller.BadRequest(string.Join(FrontendException.MessageSeparator, exception.HtmlMessages));
+            return controller.BadRequest(exception.Message);
         }
     }
 
