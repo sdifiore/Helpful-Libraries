@@ -27,7 +27,7 @@ public static class ZipArchiveExtensions
     /// <summary>
     /// Creates a new binary file in <paramref name="zip"/> and writes the <paramref name="data"/> into it.
     /// </summary>
-    public static async Task CreateBinaryEntryAsync(this ZipArchive zip, string entryName, byte[] data)
+    public static async Task CreateBinaryEntryAsync(this ZipArchive zip, string entryName, ReadOnlyMemory<byte> data)
     {
         await using var stream = zip.CreateEntry(entryName).Open();
         await stream.WriteAsync(data);
