@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.StaticFiles;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
@@ -40,4 +42,24 @@ public static class HttpContentExtensions
         string mediaType,
         string content) =>
         form.AddFile(name, fileName, mediaType, Encoding.UTF8.GetBytes(content));
+
+    /// <summary>
+    /// Adds a file from disk. The file name is derived from <paramref name="path"/> and if <paramref name="mediaType"/>
+    /// is <see langword="null"/>, then it's guessed from the file name as well.
+    /// </summary>
+    public static void AddLocalFile(
+        this MultipartFormDataContent form,
+        string name,
+        string path,
+        string mediaType = null)
+    {
+        if (string.IsNullOrEmpty(mediaType) &&
+            !new FileExtensionContentTypeProvider().TryGetContentType(path, out mediaType))
+        {
+            // Fall back to a media type that indicates unspecified binary data.
+            mediaType = MediaTypeNames.Application.Octet;
+        }
+
+        form.AddFile(name, Path.GetFileName(path), mediaType, File.ReadAllBytes(path));
+    }
 }
