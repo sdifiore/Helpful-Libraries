@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
 using System.Threading.Tasks;
 
-namespace Lombiq.HelpfulLibraries.Common.Extensions;
+namespace System.IO.Compression;
 
 public static class ZipArchiveExtensions
 {
