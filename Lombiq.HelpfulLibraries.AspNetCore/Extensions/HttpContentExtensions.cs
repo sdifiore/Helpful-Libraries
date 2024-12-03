@@ -40,5 +40,4 @@ public static class HttpContentExtensions
         string mediaType,
         string content) =>
         form.AddFile(name, fileName, mediaType, Encoding.UTF8.GetBytes(content));
-
 }
