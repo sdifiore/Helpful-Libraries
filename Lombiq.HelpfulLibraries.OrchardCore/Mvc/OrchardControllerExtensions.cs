@@ -1,4 +1,5 @@
 using Lombiq.HelpfulLibraries.AspNetCore.Exceptions;
+using Lombiq.HelpfulLibraries.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using System;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -49,6 +51,16 @@ public static class OrchardControllerExtensions
         try
         {
             return controller.Json(await dataFactory());
+        }
+        catch (UserReadableException exception)
+        {
+            LogJsonError(controller, exception);
+            return controller.Json(new
+            {
+                error = exception.Message,
+                html = exception.Messages.Select(HtmlEncoder.Default.Encode),
+                data = context.IsDevelopmentAndLocalhost(),
+            });
         }
         catch (FrontendException exception)
         {

@@ -29,7 +29,7 @@ public class FrontendException : Exception
         HtmlMessages = [message];
 
     public FrontendException(ICollection<LocalizedHtmlString> messages, Exception? innerException = null)
-        : base(string.Join("<br>", messages.Select(message => message.Value)), innerException) =>
+        : base(string.Join(MessageSeparator, messages.Select(message => message.Value)), innerException) =>
         HtmlMessages = [.. messages];
 
     public FrontendException(string message)
