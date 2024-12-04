@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Lombiq.HelpfulLibraries.AspNetCore.Exceptions;
+using Lombiq.HelpfulLibraries.Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Security.Permissions;
 using System;
 using System.Collections.Generic;
@@ -66,17 +70,26 @@ public static class AuthorizationServiceExtensions
             }
         }
 
-        var (isSuccess, data) = validateAsync is null ? (true, default) : await validateAsync();
-        if (!isSuccess) return controller.NotFound();
-
-        var result = await executeAsync(data);
-
-        if (checkModelState && !controller.ModelState.IsValid)
+        try
         {
-            return controller.ValidationProblem(controller.ModelState);
-        }
+            var (isSuccess, data) = validateAsync is null ? (true, default) : await validateAsync();
+            if (!isSuccess) return controller.NotFound();
 
-        return result is IActionResult actionResult ? actionResult : controller.Ok(result);
+            var result = await executeAsync(data);
+
+            if (checkModelState && !controller.ModelState.IsValid)
+            {
+                return controller.ValidationProblem(controller.ModelState);
+            }
+
+            return result as IActionResult ?? controller.Ok(result);
+        }
+        catch (Exception exception) when (exception is UserReadableException or FrontendException)
+        {
+            var logger = controller.HttpContext?.RequestServices?.GetService<ILogger<Controller>>();
+            logger?.LogError(exception, "An error has occurred.");
+            return controller.BadRequest(exception.Message);
+        }
     }
 
     /// <inheritdoc cref="AuthorizeForCurrentUserValidateAndExecuteAsync{TData,TResult}"/>
