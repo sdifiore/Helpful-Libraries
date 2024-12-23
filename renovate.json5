@@ -7,6 +7,10 @@
             matchPackageNames: [
                 'gulp*',
             ],
+            {
+                "groupName": "All updates",
+                "matchUpdateTypes": ["*"]
+            }
         },
     ],
 }
