@@ -9,8 +9,8 @@
             ],
         },
         {
-            "groupName": "All updates",
+            "groupName": "All packages",
             "matchUpdateTypes": ["*"]
-        }
+        },
     ],
 }
