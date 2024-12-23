@@ -1,4 +1,12 @@
 {
     '$schema': 'https://docs.renovatebot.com/renovate-schema.json',
     'extends': ['github>Lombiq/renovate-config:default-orchard-core-submodule.json5'],
+    packageRules: [
+        {
+            groupName: 'Gulp packages',
+            matchPackageNames: [
+                'gulp*',
+            ],
+        },
+    ],
 }
