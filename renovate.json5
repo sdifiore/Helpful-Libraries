@@ -9,6 +9,18 @@
             ],
         },
         {
+            groupName: 'Microsoft.Extensions',
+            matchPackageNames: [
+                'Microsoft.Extensions.*',
+            ],
+        },
+        {
+            groupName: 'RestEase',
+            matchPackageNames: [
+                'RestEase*',
+            ],
+        },
+        {
             "groupName": "All packages",
             "matchUpdateTypes": ["*"]
         },
