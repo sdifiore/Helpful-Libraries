@@ -20,9 +20,5 @@
                 'RestEase*',
             ],
         },
-        {
-            "groupName": "All packages",
-            "matchUpdateTypes": ["*"]
-        },
     ],
 }
